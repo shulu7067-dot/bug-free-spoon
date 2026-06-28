@@ -1,117 +1,123 @@
-body {
+/* GLOBAL */
+* {
   margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f4f7fb;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background: #f5f7fb;
   color: #222;
   line-height: 1.6;
 }
 
-/* HEADER (supports both header styles you had) */
-header,
-.header {
+/* HEADER */
+header {
   background: #0b3d91;
   color: white;
-  padding: 20px;
-  text-align: center;
+  padding: 20px 40px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
 }
 
-/* NAVIGATION */
-nav a,
-.header nav a {
+header h1 {
+  font-size: 22px;
+}
+
+/* NAV */
+nav a {
   color: white;
-  margin: 0 10px;
   text-decoration: none;
+  margin: 0 12px;
   font-weight: bold;
+  transition: 0.3s;
 }
 
-.header nav a.active {
-  border-bottom: 2px solid #ffcc00;
+nav a:hover {
+  color: #ffcc00;
 }
 
-/* HERO (unified version) */
+/* HERO */
 .hero {
-  padding: 80px 20px;
-  text-align: center;
-  background: linear-gradient(to right, #0b3d91, #1e88e5);
+  background: linear-gradient(rgba(11,61,145,0.85), rgba(30,136,229,0.85)),
+              url('https://images.unsplash.com/photo-1502877338535-766e1452684a') center/cover;
   color: white;
+  text-align: center;
+  padding: 120px 20px;
 }
 
 .hero h1 {
-  font-size: 40px;
+  font-size: 48px;
+  margin-bottom: 10px;
+}
+
+.hero p {
+  font-size: 18px;
+  opacity: 0.9;
 }
 
 /* BUTTON */
 .btn {
   display: inline-block;
-  margin-top: 15px;
-  padding: 12px 25px;
+  margin-top: 20px;
+  padding: 12px 28px;
   background: #ffcc00;
-  color: black;
-  text-decoration: none;
-  border-radius: 5px;
+  color: #000;
   font-weight: bold;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.btn:hover {
+  background: #e6b800;
+  transform: scale(1.05);
 }
 
 /* FEATURES SECTION */
 .features {
-  display: flex;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 20px;
-  padding: 40px;
-  flex-wrap: wrap;
-}
-
-/* CARDS (used everywhere) */
-.card {
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-  width: 200px;
-  text-align: center;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
-
-/* ABOUT PAGE SECTIONS */
-.section {
-  padding: 50px 20px;
-  max-width: 1000px;
+  padding: 60px 20px;
+  max-width: 1100px;
   margin: auto;
 }
 
-.section.alt {
+/* CARDS */
+.card {
   background: white;
-  border-radius: 10px;
-  margin: 20px auto;
-  padding: 50px 20px;
+  padding: 25px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  transition: 0.3s;
 }
 
-/* LISTS */
-ul {
-  padding-left: 20px;
-}
-
-ul li {
-  margin: 10px 0;
-  font-size: 16px;
-}
-
-/* GRID (for About page "Why Choose Us") */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 15px;
-  margin-top: 20px;
+.card:hover {
+  transform: translateY(-5px);
 }
 
 /* FOOTER */
 footer {
   text-align: center;
-  padding: 20px;
-  background: #222;
+  padding: 25px;
+  background: #111;
   color: white;
-  margin-top: 40px;
+  margin-top: 50px;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .hero h1 {
+    font-size: 32px;
+  }
 }
