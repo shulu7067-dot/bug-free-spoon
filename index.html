@@ -1,0 +1,1389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Khwezi Drive — SA Driving School</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet"/>
+<style>
+/* ═══════════════════════════════════════════
+   KHWEZI DRIVE — SA Driving School
+   No white. Midnight-dark base. SA palette.
+═══════════════════════════════════════════ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --midnight:#0D0F14;
+  --charcoal:#1A1C24;
+  --card:#21232D;
+  --sand:#2A2830;
+  --green:#007A4D;
+  --green-l:#00a368;
+  --gold:#E8A020;
+  --gold-d:#c4860f;
+  --copper:#C45C2A;
+  --text:#D4CFC8;
+  --text-dim:#7A7670;
+  --radius:10px;
+  --shadow:0 6px 32px rgba(0,0,0,.45);
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',system-ui,sans-serif;background:var(--midnight);color:var(--text);line-height:1.65;overflow-x:hidden}
+
+/* ── reveal animations ── */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .6s ease,transform .6s ease}
+.reveal.show{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none}}
+
+/* ── utility type ── */
+.eyebrow{font-size:.7rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:.75rem;display:block}
+h1,h2,.display{font-family:'Bebas Neue',Impact,sans-serif;line-height:1.05;letter-spacing:.02em}
+h2{font-size:clamp(2.2rem,5vw,3.4rem);color:var(--gold)}
+.section-sub{font-size:1rem;color:var(--text-dim);max-width:560px;line-height:1.8}
+
+/* ── buttons ── */
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.72rem 1.6rem;border-radius:7px;font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:600;text-decoration:none;border:2px solid transparent;cursor:pointer;transition:all .22s ease;white-space:nowrap}
+.btn-gold{background:var(--gold);color:var(--midnight);border-color:var(--gold)}
+.btn-gold:hover{background:var(--gold-d);border-color:var(--gold-d);transform:translateY(-2px);box-shadow:0 8px 28px rgba(232,160,32,.35)}
+.btn-green{background:var(--green);color:#fff;border-color:var(--green)}
+.btn-green:hover{background:var(--green-l);border-color:var(--green-l);transform:translateY(-2px)}
+.btn-outline{background:transparent;color:var(--gold);border-color:rgba(232,160,32,.45)}
+.btn-outline:hover{border-color:var(--gold);background:rgba(232,160,32,.08)}
+.btn-lg{padding:.95rem 2.2rem;font-size:1rem}
+.btn-sm{padding:.45rem 1rem;font-size:.8rem}
+.btn-full{width:100%;justify-content:center}
+
+/* ══════════ NAV ══════════ */
+.nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(13,15,20,.85);backdrop-filter:blur(14px);border-bottom:1px solid rgba(232,160,32,.08);transition:border-color .3s}
+.nav.active{border-bottom-color:rgba(232,160,32,.2)}
+/* SA flag stripe */
+.nav__stripe{height:3px;background:linear-gradient(90deg,#007A4D 0%,#007A4D 33.3%,#E8A020 33.3%,#E8A020 44.4%,#000 44.4%,#000 55.5%,#E8A020 55.5%,#E8A020 66.6%,#007A4D 66.6%,#007A4D 77.7%,#C45C2A 77.7%,#C45C2A 100%)}
+.nav__inner{max-width:1200px;margin:0 auto;padding:.9rem 2rem;display:flex;align-items:center;gap:1.5rem}
+.nav__logo{display:flex;align-items:center;gap:.6rem;text-decoration:none}
+.nav__logo-mark{width:38px;height:38px;flex-shrink:0}
+.nav__logo-text{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.06em;color:var(--gold);line-height:1}
+.nav__logo-sub{font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:var(--green);font-family:'DM Sans',sans-serif;font-weight:600;line-height:1;margin-top:1px}
+.nav__links{display:flex;list-style:none;gap:.1rem;margin-left:auto}
+.nav__links a{text-decoration:none;color:rgba(212,207,200,.7);font-size:.87rem;font-weight:500;padding:.4rem .8rem;border-radius:6px;transition:color .2s,background .2s;cursor:pointer}
+.nav__links a:hover,.nav__links a.active{color:var(--gold);background:rgba(232,160,32,.08)}
+.nav__cta{margin-left:.5rem}
+.nav__burger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;margin-left:auto}
+.nav__burger span{display:block;width:24px;height:2px;background:var(--text);border-radius:2px;transition:all .25s}
+.nav__burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav__burger.open span:nth-child(2){opacity:0}
+.nav__burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+/* mobile menu */
+.mob-menu{display:none;position:fixed;inset:0;background:var(--midnight);z-index:190;flex-direction:column;justify-content:center;align-items:center;gap:1.5rem;padding:2rem}
+.mob-menu.open{display:flex}
+.mob-menu a{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;letter-spacing:.06em;color:var(--text);text-decoration:none;cursor:pointer;transition:color .2s}
+.mob-menu a:hover{color:var(--gold)}
+
+/* ══════════ PAGE SYSTEM ══════════ */
+.page{display:none;padding-top:72px}
+.page.active{display:block}
+
+/* ═══════════════════════════════════
+   PAGE 1 — HOME
+═══════════════════════════════════ */
+/* Hero */
+.hero{min-height:100vh;display:flex;flex-direction:column;background:var(--midnight);position:relative;overflow:hidden}
+.hero__bg{position:absolute;inset:0;background:
+  radial-gradient(ellipse 55% 70% at 70% 50%,rgba(0,122,77,.12) 0%,transparent 60%),
+  radial-gradient(ellipse 40% 50% at 20% 80%,rgba(196,92,42,.09) 0%,transparent 55%);
+  pointer-events:none}
+.hero__grid{position:absolute;inset:0;background-image:linear-gradient(rgba(232,160,32,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(232,160,32,.03) 1px,transparent 1px);background-size:64px 64px;pointer-events:none}
+
+.hero__inner{flex:1;max-width:1200px;margin:0 auto;padding:0 2rem;display:grid;grid-template-columns:1.1fr .9fr;align-items:center;gap:4rem;padding-top:120px;padding-bottom:80px}
+.hero__kicker{display:flex;align-items:center;gap:.75rem;margin-bottom:1.5rem}
+.hero__flag{display:flex;height:16px;border-radius:3px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.4)}
+.hero__flag span{display:block;width:18px}
+.hero__headline{font-family:'Bebas Neue',sans-serif;font-size:clamp(3.5rem,8vw,6.5rem);line-height:.97;color:var(--text);margin-bottom:1.5rem}
+.hero__headline em{color:var(--gold);font-style:normal}
+.hero__headline strong{color:var(--green);font-weight:400}
+.hero__sub{font-size:1.05rem;color:var(--text-dim);max-width:480px;line-height:1.8;margin-bottom:2.5rem}
+.hero__actions{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:3rem}
+.hero__trust{display:grid;grid-template-columns:repeat(3,auto);gap:0;width:fit-content}
+.trust-pill{padding:.6rem 1.25rem;border:1px solid rgba(232,160,32,.15);text-align:center}
+.trust-pill:first-child{border-radius:8px 0 0 8px}
+.trust-pill:last-child{border-radius:0 8px 8px 0}
+.trust-pill__num{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;color:var(--gold);line-height:1;display:block}
+.trust-pill__label{font-size:.65rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.1em;font-weight:600}
+
+/* Hero visual */
+.hero__visual{position:relative;display:flex;justify-content:center;align-items:center}
+.hero__road-card{background:var(--charcoal);border:1px solid rgba(232,160,32,.15);border-radius:16px;padding:2rem;position:relative;overflow:hidden;box-shadow:var(--shadow)}
+.hero__road-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--green),var(--gold),var(--copper))}
+.road-preview{width:240px;height:280px;background:linear-gradient(180deg,#1a1c24 0%,#141619 100%);border-radius:10px;position:relative;overflow:hidden;margin:0 auto 1.5rem}
+.road-preview__lane{position:absolute;top:0;bottom:0;left:50%;transform:translateX(-50%);width:60px;background:#222430}
+.road-preview__dash{position:absolute;left:50%;transform:translateX(-50%);width:6px;height:28px;background:var(--gold);border-radius:3px;opacity:.7;animation:dashScroll 1.2s linear infinite}
+.road-preview__dash:nth-child(2){top:20%;animation-delay:-.4s}
+.road-preview__dash:nth-child(3){top:50%;animation-delay:-.8s}
+.road-preview__dash:nth-child(4){top:75%;animation-delay:-1.2s}
+.road-preview__car{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);width:44px;height:60px;background:var(--green);border-radius:8px 8px 5px 5px;display:flex;align-items:center;justify-content:center;box-shadow:0 0 20px rgba(0,122,77,.5)}
+.road-preview__car::before,.road-preview__car::after{content:'';position:absolute;width:12px;height:16px;background:var(--charcoal);border-radius:2px}
+.road-preview__car::before{top:8px;left:6px}
+.road-preview__car::after{top:8px;right:6px}
+@keyframes dashScroll{from{top:-10%}to{top:110%}}
+.hero__card-stats{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
+.hcs{background:var(--sand);border-radius:8px;padding:.75rem;text-align:center}
+.hcs__val{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;color:var(--gold);line-height:1;display:block}
+.hcs__label{font-size:.68rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.08em}
+
+/* Marquee */
+.marquee-wrap{background:var(--green);padding:.6rem 0;overflow:hidden;position:relative}
+.marquee-track{display:flex;gap:3rem;animation:marquee 22s linear infinite;white-space:nowrap;width:max-content}
+.marquee-item{font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.12em;color:var(--midnight);opacity:.85}
+.marquee-dot{color:var(--gold);opacity:1}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* Home sections */
+.home-why{padding:6rem 0;background:var(--charcoal)}
+.home-why__inner{max-width:1200px;margin:0 auto;padding:0 2rem}
+.home-why__header{margin-bottom:3rem}
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
+.why-card{background:var(--card);border-radius:var(--radius);padding:1.75rem;border:1px solid rgba(232,160,32,.06);transition:border-color .25s,transform .25s}
+.why-card:hover{border-color:rgba(232,160,32,.28);transform:translateY(-4px)}
+.why-card__icon{width:48px;height:48px;margin-bottom:1.25rem;color:var(--gold)}
+.why-card h3{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.04em;color:var(--gold);margin-bottom:.6rem}
+.why-card p{font-size:.88rem;color:var(--text-dim);line-height:1.75}
+
+/* Promo strip */
+.promo-strip{background:linear-gradient(135deg,var(--green) 0%,#005c3a 100%);padding:4rem 0}
+.promo-strip__inner{max-width:1200px;margin:0 auto;padding:0 2rem;display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap}
+.promo-strip h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);color:#fff;letter-spacing:.04em;line-height:1.1}
+.promo-strip p{font-size:.9rem;color:rgba(255,255,255,.75);margin-top:.4rem}
+
+/* Testimonials on home */
+.home-reviews{padding:5rem 0;background:var(--midnight)}
+.home-reviews__inner{max-width:1200px;margin:0 auto;padding:0 2rem}
+.home-reviews__header{margin-bottom:2.5rem}
+.reviews-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
+.review-card{background:var(--card);border-radius:var(--radius);padding:1.5rem;border-left:3px solid var(--green)}
+.review-card__stars{color:var(--gold);font-size:.9rem;margin-bottom:.75rem}
+.review-card blockquote{font-style:italic;font-size:.88rem;color:var(--text);line-height:1.7;margin-bottom:.9rem}
+.review-card cite{font-size:.75rem;color:var(--text-dim);font-style:normal;font-weight:600;text-transform:uppercase;letter-spacing:.06em}
+
+/* ═══════════════════════════════════
+   PAGE 2 — SERVICES
+═══════════════════════════════════ */
+.page-hero{padding:6rem 2rem 4rem;text-align:center;max-width:800px;margin:0 auto}
+.page-hero h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,7vw,5.5rem);color:var(--gold);margin-bottom:1rem}
+.page-hero p{color:var(--text-dim);font-size:1rem;line-height:1.8}
+
+.services-page{background:var(--charcoal)}
+.services-grid{max-width:1200px;margin:0 auto;padding:0 2rem 6rem;display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.svc-card{background:var(--card);border-radius:var(--radius);overflow:hidden;border:1px solid rgba(255,255,255,.05);transition:border-color .25s,transform .25s,box-shadow .25s}
+.svc-card:hover{border-color:rgba(232,160,32,.3);transform:translateY(-5px);box-shadow:0 16px 40px rgba(0,0,0,.4)}
+.svc-card--featured{border-color:var(--gold);border-width:2px}
+.svc-card__top{height:130px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.svc-card__top svg{width:72px;height:72px;opacity:.9}
+.svc-card__badge{position:absolute;top:.75rem;right:.75rem;background:var(--gold);color:var(--midnight);font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.25rem .65rem;border-radius:20px}
+.svc-card__body{padding:1.5rem}
+.svc-card__body h3{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:.04em;color:var(--gold);margin-bottom:.6rem}
+.svc-card__body p{font-size:.87rem;color:var(--text-dim);line-height:1.75;margin-bottom:1.25rem}
+.svc-card__features{list-style:none;margin-bottom:1.5rem}
+.svc-card__features li{font-size:.83rem;color:var(--text);padding:.38rem 0;border-bottom:1px solid rgba(255,255,255,.05);display:flex;align-items:center;gap:.5rem}
+.svc-card__features li::before{content:'›';color:var(--green);font-size:1.1rem;font-weight:700;flex-shrink:0}
+.svc-card__price{display:flex;align-items:flex-end;gap:.3rem;margin-bottom:1rem}
+.svc-card__price .amount{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;color:var(--gold);line-height:1}
+.svc-card__price .period{font-size:.78rem;color:var(--text-dim);padding-bottom:.3rem}
+
+/* Services extras */
+.svc-extras{background:var(--midnight);padding:4rem 2rem}
+.svc-extras__inner{max-width:1200px;margin:0 auto}
+.svc-extras h2{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--gold);margin-bottom:2rem;letter-spacing:.04em}
+.svc-extras-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
+.extra-card{background:var(--card);border-radius:var(--radius);padding:1.25rem;border:1px solid rgba(0,122,77,.2);text-align:center}
+.extra-card__icon{font-size:2rem;margin-bottom:.75rem}
+.extra-card h4{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:var(--green-l);letter-spacing:.04em;margin-bottom:.4rem}
+.extra-card p{font-size:.8rem;color:var(--text-dim);line-height:1.6}
+
+/* How to book strip */
+.book-steps{background:var(--charcoal);padding:5rem 2rem}
+.book-steps__inner{max-width:1000px;margin:0 auto}
+.book-steps h2{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;color:var(--gold);margin-bottom:2.5rem;letter-spacing:.04em}
+.step-row{display:flex;align-items:flex-start;gap:2rem;margin-bottom:1.5rem}
+.step-num{width:50px;height:50px;border-radius:50%;background:var(--green);color:#fff;font-family:'Bebas Neue',sans-serif;font-size:1.5rem;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.step-content h4{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:var(--text);letter-spacing:.04em;margin-bottom:.3rem}
+.step-content p{font-size:.87rem;color:var(--text-dim);line-height:1.7}
+
+/* ═══════════════════════════════════
+   PAGE 3 — GALLERY
+═══════════════════════════════════ */
+.gallery-page{background:var(--charcoal)}
+.gallery-filters{max-width:1200px;margin:0 auto;padding:0 2rem 2rem;display:flex;gap:.75rem;flex-wrap:wrap}
+.filter-btn{background:var(--card);border:1px solid rgba(232,160,32,.15);border-radius:6px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:600;padding:.45rem 1rem;cursor:pointer;transition:all .2s}
+.filter-btn.active,.filter-btn:hover{background:var(--gold);color:var(--midnight);border-color:var(--gold)}
+.gallery-grid{max-width:1200px;margin:0 auto;padding:0 2rem 6rem;display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+.gal-item{border-radius:var(--radius);overflow:hidden;aspect-ratio:4/3;position:relative;cursor:pointer;background:var(--card)}
+.gal-item:nth-child(4n+1):first-child,.gal-item.wide{grid-column:span 2}
+.gal-thumb{width:100%;height:100%;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1rem;transition:transform .35s}
+.gal-item:hover .gal-thumb{transform:scale(1.04)}
+.gal-item__overlay{position:absolute;inset:0;background:linear-gradient(180deg,transparent 30%,rgba(13,15,20,.85) 100%);opacity:0;transition:opacity .3s}
+.gal-item:hover .gal-item__overlay{opacity:1}
+.gal-item__label{position:absolute;bottom:0;left:0;right:0;padding:1rem;transform:translateY(8px);opacity:0;transition:all .3s}
+.gal-item:hover .gal-item__label{transform:none;opacity:1}
+.gal-item__label h4{font-family:'Bebas Neue',sans-serif;font-size:1rem;color:var(--gold);letter-spacing:.06em}
+.gal-item__label p{font-size:.75rem;color:rgba(212,207,200,.7)}
+.gal-icon{font-size:3rem;opacity:.25}
+.gal-txt{font-size:.75rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.1em;font-weight:600}
+
+/* Lightbox */
+.lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:500;align-items:center;justify-content:center;padding:2rem}
+.lightbox.open{display:flex}
+.lightbox__content{max-width:700px;width:100%;background:var(--card);border-radius:14px;overflow:hidden;border:1px solid rgba(232,160,32,.2)}
+.lightbox__img{height:360px;display:flex;align-items:center;justify-content:center;font-size:5rem}
+.lightbox__info{padding:1.5rem}
+.lightbox__info h3{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:var(--gold);letter-spacing:.04em;margin-bottom:.4rem}
+.lightbox__info p{font-size:.87rem;color:var(--text-dim);line-height:1.7}
+.lightbox__close{position:absolute;top:1.5rem;right:1.5rem;background:var(--card);border:1px solid rgba(232,160,32,.25);color:var(--gold);border-radius:50%;width:40px;height:40px;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center}
+
+/* Gallery stats bar */
+.gal-stats{background:var(--green);padding:2.5rem 2rem;display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;text-align:center}
+.gal-stat span:first-child{font-family:'Bebas Neue',sans-serif;font-size:2.4rem;color:var(--midnight);display:block;line-height:1}
+.gal-stat span:last-child{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(13,15,20,.65)}
+
+/* ═══════════════════════════════════
+   PAGE 4 — ABOUT
+═══════════════════════════════════ */
+.about-page{background:var(--midnight)}
+.about-hero{max-width:1200px;margin:0 auto;padding:0 2rem 5rem;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+.about-hero__text h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,6vw,5rem);color:var(--gold);margin-bottom:1.25rem;letter-spacing:.04em;line-height:1}
+.about-hero__text p{font-size:.97rem;color:var(--text-dim);line-height:1.85;margin-bottom:1rem}
+.about-hero__text p strong{color:var(--text)}
+.about-visual{background:var(--charcoal);border-radius:16px;padding:2.5rem;border:1px solid rgba(232,160,32,.12)}
+.about-visual__flag{display:flex;border-radius:8px;overflow:hidden;height:10px;margin-bottom:2rem}
+.about-visual__flag span{flex:1}
+.timeline{display:flex;flex-direction:column;gap:1.25rem}
+.tl-item{display:flex;gap:1.25rem;align-items:flex-start}
+.tl-year{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;color:var(--gold);min-width:52px;letter-spacing:.04em}
+.tl-bar{width:3px;background:linear-gradient(to bottom,var(--green),var(--gold));border-radius:2px;align-self:stretch;flex-shrink:0;margin-top:3px}
+.tl-content h4{font-size:.88rem;font-weight:600;color:var(--text);margin-bottom:.15rem}
+.tl-content p{font-size:.8rem;color:var(--text-dim);line-height:1.6}
+
+/* Values */
+.about-values{background:var(--charcoal);padding:5rem 0}
+.about-values__inner{max-width:1200px;margin:0 auto;padding:0 2rem}
+.about-values h2{font-family:'Bebas Neue',sans-serif;font-size:2.5rem;color:var(--gold);letter-spacing:.04em;margin-bottom:2.5rem}
+.values-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem}
+.val-card{background:var(--card);border-radius:var(--radius);padding:1.5rem;border-top:3px solid var(--green)}
+.val-card h3{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;color:var(--green-l);letter-spacing:.04em;margin-bottom:.5rem}
+.val-card p{font-size:.83rem;color:var(--text-dim);line-height:1.7}
+
+/* Instructors */
+.about-team{background:var(--midnight);padding:5rem 0}
+.about-team__inner{max-width:1200px;margin:0 auto;padding:0 2rem}
+.about-team h2{font-family:'Bebas Neue',sans-serif;font-size:2.5rem;color:var(--gold);letter-spacing:.04em;margin-bottom:2.5rem}
+.team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem}
+.team-card{background:var(--charcoal);border-radius:var(--radius);overflow:hidden;border:1px solid rgba(255,255,255,.05);transition:border-color .25s,transform .25s}
+.team-card:hover{border-color:rgba(232,160,32,.3);transform:translateY(-4px)}
+.team-card__avi{height:120px;display:flex;align-items:center;justify-content:center}
+.team-card__avi span{font-family:'Bebas Neue',sans-serif;font-size:2.6rem;color:rgba(255,255,255,.85)}
+.team-card__body{padding:1rem}
+.team-card__body h4{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:var(--text);letter-spacing:.04em;margin-bottom:.2rem}
+.team-card__grade{font-size:.68rem;color:var(--gold);font-weight:600;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.5rem;display:block}
+.team-card__body p{font-size:.78rem;color:var(--text-dim);line-height:1.6}
+
+/* SA Map mention */
+.about-coverage{background:var(--green);padding:4rem 2rem}
+.about-coverage__inner{max-width:900px;margin:0 auto;text-align:center}
+.about-coverage h2{font-family:'Bebas Neue',sans-serif;font-size:2.5rem;color:var(--midnight);letter-spacing:.04em;margin-bottom:1rem}
+.about-coverage p{color:rgba(13,15,20,.75);margin-bottom:2rem}
+.coverage-cities{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.city-pill{background:rgba(13,15,20,.15);color:var(--midnight);padding:.45rem 1.1rem;border-radius:30px;font-size:.82rem;font-weight:600}
+
+/* Accreditations */
+.about-accred{background:var(--charcoal);padding:4rem 2rem}
+.about-accred__inner{max-width:1000px;margin:0 auto;text-align:center}
+.about-accred h3{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;color:var(--gold);letter-spacing:.06em;margin-bottom:2rem}
+.accred-list{display:flex;gap:2rem;justify-content:center;flex-wrap:wrap}
+.accred-badge{background:var(--card);border-radius:10px;padding:1rem 1.75rem;font-size:.82rem;font-weight:600;color:var(--text-dim);border:1px solid rgba(0,122,77,.25)}
+
+/* ═══════════════════════════════════
+   PAGE 5 — CONTACT
+═══════════════════════════════════ */
+.contact-page{background:var(--midnight)}
+.contact-inner{max-width:1200px;margin:0 auto;padding:0 2rem 6rem;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
+.contact-info h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,5vw,4rem);color:var(--gold);letter-spacing:.04em;margin-bottom:1.25rem;line-height:1}
+.contact-info p{font-size:.95rem;color:var(--text-dim);line-height:1.8;margin-bottom:2rem}
+.contact-details{list-style:none;display:flex;flex-direction:column;gap:1.1rem;margin-bottom:2.5rem}
+.contact-details li{display:flex;align-items:center;gap:.9rem;font-size:.92rem;color:var(--text);font-weight:500}
+.contact-details li svg{color:var(--green);flex-shrink:0}
+.contact-socials{display:flex;gap:.75rem;flex-wrap:wrap}
+.social-btn{background:var(--card);border:1px solid rgba(232,160,32,.15);border-radius:8px;padding:.6rem 1.25rem;color:var(--text-dim);font-size:.82rem;font-weight:600;text-decoration:none;transition:all .2s}
+.social-btn:hover{border-color:var(--gold);color:var(--gold)}
+
+/* Map placeholder */
+.contact-map{background:var(--charcoal);border-radius:var(--radius);height:200px;margin-bottom:2rem;display:flex;align-items:center;justify-content:center;border:1px solid rgba(0,122,77,.2);position:relative;overflow:hidden}
+.contact-map::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,rgba(0,122,77,.15) 0%,transparent 65%)}
+.contact-map span{font-size:3rem;position:relative}
+.contact-map p{position:absolute;bottom:1rem;font-size:.72rem;color:var(--text-dim);letter-spacing:.08em;text-transform:uppercase}
+
+/* Branches */
+.branches{margin-bottom:2.5rem}
+.branches h3{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:var(--gold);letter-spacing:.04em;margin-bottom:1rem}
+.branch-list{display:flex;flex-direction:column;gap:.6rem}
+.branch-item{background:var(--card);border-radius:8px;padding:.9rem 1rem;display:flex;align-items:center;gap:.75rem;border:1px solid rgba(255,255,255,.05)}
+.branch-item__dot{width:10px;height:10px;border-radius:50%;background:var(--green);flex-shrink:0}
+.branch-item__name{font-weight:600;font-size:.88rem;color:var(--text)}
+.branch-item__addr{font-size:.78rem;color:var(--text-dim)}
+
+/* Form */
+.contact-form{background:var(--charcoal);border-radius:14px;padding:2.25rem;border:1px solid rgba(232,160,32,.1)}
+.contact-form h3{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:var(--gold);letter-spacing:.04em;margin-bottom:.4rem}
+.contact-form .sub{font-size:.83rem;color:var(--text-dim);margin-bottom:1.75rem}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.fg{display:flex;flex-direction:column;gap:.4rem;margin-bottom:1rem}
+.fg label{font-size:.75rem;font-weight:600;color:var(--text-dim);letter-spacing:.06em;text-transform:uppercase}
+.fg input,.fg select,.fg textarea{background:var(--sand);border:1px solid rgba(255,255,255,.08);border-radius:7px;padding:.72rem 1rem;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.9rem;outline:none;transition:border-color .2s;width:100%}
+.fg input::placeholder,.fg textarea::placeholder{color:rgba(212,207,200,.28)}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--gold)}
+.fg select option{background:var(--charcoal)}
+.form-note{font-size:.72rem;color:var(--text-dim);margin-top:.5rem;text-align:center}
+.form-success{display:none;align-items:center;gap:.75rem;background:rgba(0,122,77,.15);border:1px solid rgba(0,122,77,.4);border-radius:8px;padding:1rem 1.25rem;color:var(--green-l);font-weight:600;font-size:.9rem;margin-top:1rem}
+.form-success.show{display:flex}
+
+/* FAQ */
+.contact-faq{background:var(--charcoal);padding:5rem 2rem}
+.contact-faq__inner{max-width:800px;margin:0 auto}
+.contact-faq h2{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;color:var(--gold);letter-spacing:.04em;margin-bottom:2rem}
+.faq-item{border:1px solid rgba(232,160,32,.1);border-radius:var(--radius);margin-bottom:.75rem;overflow:hidden;transition:border-color .2s}
+.faq-item[open]{border-color:var(--gold)}
+.faq-item summary{padding:1.1rem 1.4rem;font-weight:600;font-size:.93rem;color:var(--text);cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:1rem;user-select:none}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::after{content:'+';font-size:1.2rem;color:var(--gold);flex-shrink:0;transition:transform .25s}
+.faq-item[open] summary::after{transform:rotate(45deg)}
+.faq-item p{padding:0 1.4rem 1.1rem;font-size:.87rem;color:var(--text-dim);line-height:1.75}
+
+/* ══════════ FOOTER ══════════ */
+.footer{background:#07090C;border-top:1px solid rgba(232,160,32,.08);padding-top:4rem}
+.footer__inner{max-width:1200px;margin:0 auto;padding:0 2rem 3rem;display:grid;grid-template-columns:1.6fr 2fr;gap:4rem}
+.footer__brand .nav__logo{margin-bottom:1rem}
+.footer__brand p{font-size:.87rem;color:var(--text-dim);line-height:1.7;margin-bottom:.75rem}
+.footer__legal{font-size:.68rem;color:rgba(212,207,200,.25);line-height:1.6}
+.footer__cols{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
+.footer__col h4{font-family:'Bebas Neue',sans-serif;font-size:.95rem;letter-spacing:.1em;color:var(--text);margin-bottom:1rem}
+.footer__col ul{list-style:none;display:flex;flex-direction:column;gap:.5rem}
+.footer__col a{text-decoration:none;font-size:.83rem;color:var(--text-dim);transition:color .2s;cursor:pointer}
+.footer__col a:hover{color:var(--gold)}
+.footer__stripe{height:4px;background:linear-gradient(90deg,#007A4D 0%,#007A4D 33.3%,#E8A020 33.3%,#E8A020 44.4%,#000 44.4%,#000 55.5%,#E8A020 55.5%,#E8A020 66.6%,#007A4D 66.6%,#007A4D 77.7%,#C45C2A 77.7%,#C45C2A 100%)}
+.footer__bottom{max-width:1200px;margin:0 auto;padding:1.25rem 2rem;display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(255,255,255,.05)}
+.footer__bottom p{font-size:.75rem;color:rgba(212,207,200,.3)}
+.footer__social{display:flex;gap:.6rem}
+.footer__social a{text-decoration:none;font-size:.72rem;font-weight:600;color:var(--text-dim);border:1px solid rgba(255,255,255,.1);padding:.3rem .65rem;border-radius:6px;transition:all .2s;cursor:pointer}
+.footer__social a:hover{color:var(--gold);border-color:var(--gold)}
+
+/* ══════════ RESPONSIVE ══════════ */
+@media(max-width:1024px){
+  .why-grid{grid-template-columns:repeat(2,1fr)}
+  .services-grid{grid-template-columns:1fr 1fr}
+  .gallery-grid{grid-template-columns:repeat(2,1fr)}
+  .gal-item.wide{grid-column:span 2}
+  .values-grid{grid-template-columns:repeat(2,1fr)}
+  .team-grid{grid-template-columns:repeat(2,1fr)}
+  .svc-extras-grid{grid-template-columns:repeat(2,1fr)}
+  .gal-stats{grid-template-columns:repeat(2,1fr)}
+  .about-hero{grid-template-columns:1fr;gap:3rem}
+  .footer__inner{grid-template-columns:1fr;gap:2rem}
+}
+@media(max-width:768px){
+  .nav__links,.nav__cta{display:none}
+  .nav__burger{display:flex}
+  .hero__inner{grid-template-columns:1fr;padding-top:100px;gap:3rem;text-align:center}
+  .hero__actions{justify-content:center}
+  .hero__trust{margin:0 auto}
+  .hero__visual{display:none}
+  .why-grid{grid-template-columns:1fr}
+  .reviews-strip{grid-template-columns:1fr}
+  .services-grid{grid-template-columns:1fr}
+  .gallery-grid{grid-template-columns:1fr}
+  .gal-item.wide{grid-column:span 1}
+  .values-grid{grid-template-columns:1fr 1fr}
+  .team-grid{grid-template-columns:1fr 1fr}
+  .svc-extras-grid{grid-template-columns:1fr 1fr}
+  .gal-stats{grid-template-columns:1fr 1fr}
+  .contact-inner{grid-template-columns:1fr;gap:3rem}
+  .form-row{grid-template-columns:1fr}
+  .footer__cols{grid-template-columns:1fr 1fr}
+  .footer__bottom{flex-direction:column;gap:.75rem;text-align:center}
+  .promo-strip__inner{flex-direction:column;text-align:center}
+  .coverage-cities{gap:.5rem}
+}
+@media(max-width:480px){
+  .values-grid{grid-template-columns:1fr}
+  .team-grid{grid-template-columns:1fr}
+  .gal-stats{grid-template-columns:1fr 1fr}
+  .footer__cols{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════ NAV ══════════ -->
+<nav class="nav" id="nav">
+  <div class="nav__stripe"></div>
+  <div class="nav__inner">
+    <a class="nav__logo" onclick="navigate('home')" style="cursor:pointer">
+      <svg class="nav__logo-mark" viewBox="0 0 48 48" fill="none">
+        <circle cx="24" cy="24" r="21" stroke="#007A4D" stroke-width="2"/>
+        <circle cx="24" cy="24" r="5" fill="#E8A020"/>
+        <line x1="24" y1="3" x2="24" y2="19" stroke="#E8A020" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="24" y1="29" x2="24" y2="45" stroke="#E8A020" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="3" y1="24" x2="19" y2="24" stroke="#E8A020" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="29" y1="24" x2="45" y2="24" stroke="#E8A020" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="8.5" y1="8.5" x2="18" y2="18" stroke="#E8A020" stroke-width="2" stroke-linecap="round" opacity=".6"/>
+        <line x1="30" y1="30" x2="39.5" y2="39.5" stroke="#E8A020" stroke-width="2" stroke-linecap="round" opacity=".6"/>
+        <line x1="39.5" y1="8.5" x2="30" y2="18" stroke="#E8A020" stroke-width="2" stroke-linecap="round" opacity=".6"/>
+        <line x1="18" y1="30" x2="8.5" y2="39.5" stroke="#E8A020" stroke-width="2" stroke-linecap="round" opacity=".6"/>
+      </svg>
+      <div>
+        <div class="nav__logo-text">Khwezi Drive</div>
+        <div class="nav__logo-sub">SA Driving Academy</div>
+      </div>
+    </a>
+    <ul class="nav__links">
+      <li><a onclick="navigate('home')" data-page="home" class="active">Home</a></li>
+      <li><a onclick="navigate('services')" data-page="services">Services</a></li>
+      <li><a onclick="navigate('gallery')" data-page="gallery">Gallery</a></li>
+      <li><a onclick="navigate('about')" data-page="about">About</a></li>
+      <li><a onclick="navigate('contact')" data-page="contact">Contact</a></li>
+    </ul>
+    <a onclick="navigate('contact')" class="btn btn-gold btn-sm nav__cta" style="cursor:pointer">Book a Lesson</a>
+    <button class="nav__burger" id="burger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- mobile menu -->
+<div class="mob-menu" id="mobMenu">
+  <a onclick="navigate('home');closeMob()">Home</a>
+  <a onclick="navigate('services');closeMob()">Services</a>
+  <a onclick="navigate('gallery');closeMob()">Gallery</a>
+  <a onclick="navigate('about');closeMob()">About</a>
+  <a onclick="navigate('contact');closeMob()">Contact</a>
+  <a onclick="navigate('contact');closeMob()" class="btn btn-gold btn-lg" style="margin-top:1rem">Book a Lesson</a>
+</div>
+
+<!-- ══════════════════════════════════════
+     PAGE: HOME
+══════════════════════════════════════ -->
+<div class="page active" id="page-home">
+
+  <!-- Hero -->
+  <header class="hero">
+    <div class="hero__bg"></div>
+    <div class="hero__grid"></div>
+    <div class="hero__inner">
+      <div class="hero__text">
+        <div class="hero__kicker">
+          <div class="hero__flag">
+            <span style="background:#007A4D"></span>
+            <span style="background:#000;width:10px"></span>
+            <span style="background:#E8A020"></span>
+            <span style="background:#000;width:10px"></span>
+            <span style="background:#007A4D"></span>
+            <span style="background:#C45C2A;width:10px"></span>
+          </div>
+          <span class="eyebrow" style="margin:0">South Africa's trusted driving academy</span>
+        </div>
+        <h1 class="hero__headline">
+          Your <em>Licence.</em><br/>
+          Your <strong>Freedom.</strong><br/>
+          Our Road.
+        </h1>
+        <p class="hero__sub">From K53 learner's licence to advanced road skills — Khwezi Drive has guided over 15 000 South Africans to drive with confidence, safety, and pride since 2006.</p>
+        <div class="hero__actions">
+          <a onclick="navigate('services')" class="btn btn-gold btn-lg" style="cursor:pointer">View Our Packages</a>
+          <a onclick="navigate('contact')" class="btn btn-outline btn-lg" style="cursor:pointer">Book a Lesson →</a>
+        </div>
+        <div class="hero__trust">
+          <div class="trust-pill">
+            <span class="trust-pill__num" id="cnt1">91</span>
+            <span class="trust-pill__label">% Pass Rate</span>
+          </div>
+          <div class="trust-pill">
+            <span class="trust-pill__num">15K+</span>
+            <span class="trust-pill__label">Students</span>
+          </div>
+          <div class="trust-pill">
+            <span class="trust-pill__num">8</span>
+            <span class="trust-pill__label">Provinces</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero__visual">
+        <div class="hero__road-card">
+          <div class="road-preview">
+            <div class="road-preview__lane"></div>
+            <div class="road-preview__dash"></div>
+            <div class="road-preview__dash"></div>
+            <div class="road-preview__dash"></div>
+            <div class="road-preview__dash"></div>
+            <div class="road-preview__car">
+              <svg width="24" height="30" viewBox="0 0 24 30" fill="none"><rect x="4" y="10" width="16" height="14" rx="3" fill="rgba(255,255,255,.15)"/><rect x="6" y="12" width="5" height="6" rx="1" fill="#0D0F14"/><rect x="13" y="12" width="5" height="6" rx="1" fill="#0D0F14"/><rect x="2" y="20" width="4" height="3" rx="1" fill="#0D0F14"/><rect x="18" y="20" width="4" height="3" rx="1" fill="#0D0F14"/></svg>
+            </div>
+          </div>
+          <div class="hero__card-stats">
+            <div class="hcs"><span class="hcs__val">K53</span><span class="hcs__label">Certified</span></div>
+            <div class="hcs"><span class="hcs__val">4.9★</span><span class="hcs__label">Rating</span></div>
+            <div class="hcs"><span class="hcs__val">18+</span><span class="hcs__label">Instructors</span></div>
+            <div class="hcs"><span class="hcs__val">8</span><span class="hcs__label">Provinces</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="marquee-wrap">
+      <div class="marquee-track" id="marqueeTrack"></div>
+    </div>
+  </header>
+
+  <!-- Why Khwezi -->
+  <section class="home-why">
+    <div class="home-why__inner">
+      <div class="home-why__header">
+        <span class="eyebrow">Why choose Khwezi Drive</span>
+        <h2>Built for South African roads</h2>
+        <p class="section-sub" style="margin-top:.75rem">Our curriculum goes beyond K53. We teach you to handle Jo'burg traffic, Cape Town passes, and everything in between.</p>
+      </div>
+      <div class="why-grid">
+        <div class="why-card reveal">
+          <div class="why-card__icon">
+            <svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="20" stroke="currentColor" stroke-width="2"/><path d="M16 24l6 6 10-12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h3>K53 Certified Training</h3>
+          <p>Full K53 learner's and driver's licence preparation — the official South African method, taught by SADTI-registered instructors.</p>
+        </div>
+        <div class="why-card reveal">
+          <div class="why-card__icon">
+            <svg viewBox="0 0 48 48" fill="none"><path d="M24 6l4.9 9.9 10.9 1.6-7.9 7.7 1.9 10.9L24 31.3l-9.8 5.1 1.9-10.9-7.9-7.7 10.9-1.6L24 6z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+          </div>
+          <h3>91% First-Time Pass</h3>
+          <p>Nearly double the national average. Our structured mock tests and DLTC route familiarity give every student the edge on test day.</p>
+        </div>
+        <div class="why-card reveal">
+          <div class="why-card__icon">
+            <svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="18" r="8" stroke="currentColor" stroke-width="2"/><path d="M10 42c0-7.7 6.3-14 14-14s14 6.3 14 14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </div>
+          <h3>Patient, Qualified Coaches</h3>
+          <p>All 18+ instructors hold SADTI registration, PrDP licences, and complete annual refresher training. First-time drivers welcome.</p>
+        </div>
+        <div class="why-card reveal">
+          <div class="why-card__icon">
+            <svg viewBox="0 0 48 48" fill="none"><rect x="8" y="14" width="32" height="22" rx="3" stroke="currentColor" stroke-width="2"/><path d="M16 14v-4a8 8 0 0 1 16 0v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </div>
+          <h3>Dual-Control Safety</h3>
+          <p>Every training vehicle has dual pedals, insurance cover, and roadworthy certification. You focus on learning — we handle safety.</p>
+        </div>
+        <div class="why-card reveal">
+          <div class="why-card__icon">
+            <svg viewBox="0 0 48 48" fill="none"><rect x="6" y="8" width="36" height="32" rx="3" stroke="currentColor" stroke-width="2"/><path d="M16 22h16M16 30h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </div>
+          <h3>Learner's Test Support</h3>
+          <p>Theory videos, K53 workbooks, and unlimited online mock tests included in every package. Over 1 000 practice questions.</p>
+        </div>
+        <div class="why-card reveal">
+          <div class="why-card__icon">
+            <svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="20" stroke="currentColor" stroke-width="2"/><path d="M24 14v10l6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </div>
+          <h3>Flexible Slots</h3>
+          <p>Morning, afternoon, Saturday, and Sunday slots across 8 provinces. Book, reschedule, or cancel online — 24/7 access.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Promo CTA -->
+  <div class="promo-strip">
+    <div class="promo-strip__inner">
+      <div>
+        <h2>First lesson R250. No strings.</h2>
+        <p>Try before you commit. If it's not the right fit, we refund you fully — no questions.</p>
+      </div>
+      <a onclick="navigate('contact')" class="btn btn-gold btn-lg" style="cursor:pointer">Claim Your First Lesson</a>
+    </div>
+  </div>
+
+  <!-- Reviews -->
+  <section class="home-reviews">
+    <div class="home-reviews__inner">
+      <div class="home-reviews__header">
+        <span class="eyebrow">What our students say</span>
+        <h2>Real results, real stories</h2>
+      </div>
+      <div class="reviews-strip">
+        <div class="review-card reveal">
+          <div class="review-card__stars">★★★★★</div>
+          <blockquote>"Passed first attempt! My instructor Sipho was incredibly patient. I was terrified of the N1 but by week three I was driving it confidently."</blockquote>
+          <cite>— Naledi M., Gauteng</cite>
+        </div>
+        <div class="review-card reveal">
+          <div class="review-card__stars">★★★★★</div>
+          <blockquote>"I tried two other schools and failed both times. Khwezi Drive changed my whole approach. The mock tests are exactly like the real DLTC route."</blockquote>
+          <cite>— Tariq A., Western Cape</cite>
+        </div>
+        <div class="review-card reveal">
+          <div class="review-card__stars">★★★★★</div>
+          <blockquote>"Booked the intensive package from KZN. 12 days and I had my licence. The instructor met me at my flat every morning. Absolute professionals."</blockquote>
+          <cite>— Thandi K., KwaZulu-Natal</cite>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /page-home -->
+
+
+<!-- ══════════════════════════════════════
+     PAGE: SERVICES
+══════════════════════════════════════ -->
+<div class="page" id="page-services">
+  <section class="services-page">
+    <div class="page-hero">
+      <span class="eyebrow">What we offer</span>
+      <h1>Our Driving Packages</h1>
+      <p>From your very first lesson to advanced defensive driving — we have a programme designed for every South African driver at every stage.</p>
+    </div>
+    <div class="services-grid">
+
+      <!-- Card 1 -->
+      <div class="svc-card reveal">
+        <div class="svc-card__top" style="background:linear-gradient(135deg,#0d2a1d,#1a1c24)">
+          <svg viewBox="0 0 80 80" fill="none"><circle cx="40" cy="40" r="32" stroke="#007A4D" stroke-width="2.5"/><circle cx="40" cy="40" r="8" fill="#007A4D"/><line x1="40" y1="8" x2="40" y2="32" stroke="#007A4D" stroke-width="3" stroke-linecap="round"/><line x1="40" y1="48" x2="40" y2="72" stroke="#007A4D" stroke-width="3" stroke-linecap="round"/><line x1="8" y1="40" x2="32" y2="40" stroke="#007A4D" stroke-width="3" stroke-linecap="round"/><line x1="48" y1="40" x2="72" y2="40" stroke="#007A4D" stroke-width="3" stroke-linecap="round"/></svg>
+        </div>
+        <div class="svc-card__body">
+          <h3>K53 Learner Package</h3>
+          <p>Everything you need to pass your learner's licence test — theory videos, K53 workbooks, and unlimited online mock tests.</p>
+          <ul class="svc-card__features">
+            <li>K53 theory workbook (print + digital)</li>
+            <li>1 000+ online practice questions</li>
+            <li>Hazard perception video series</li>
+            <li>Unlimited mock test attempts</li>
+            <li>WhatsApp tutor support</li>
+          </ul>
+          <div class="svc-card__price"><span class="amount">R350</span><span class="period">/once-off</span></div>
+          <a onclick="navigate('contact')" class="btn btn-green btn-full" style="cursor:pointer">Enrol Now</a>
+        </div>
+      </div>
+
+      <!-- Card 2 — featured -->
+      <div class="svc-card svc-card--featured reveal">
+        <div class="svc-card__badge">Most Popular</div>
+        <div class="svc-card__top" style="background:linear-gradient(135deg,#2a1d00,#1a1c24)">
+          <svg viewBox="0 0 80 80" fill="none"><rect x="12" y="28" width="56" height="30" rx="6" stroke="#E8A020" stroke-width="2.5"/><path d="M20 28v-6a20 20 0 0 1 40 0v6" stroke="#E8A020" stroke-width="2.5" stroke-linecap="round"/><circle cx="40" cy="44" r="6" fill="#E8A020"/><path d="M40 50v8" stroke="#E8A020" stroke-width="2.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="svc-card__body">
+          <h3>Standard Driver's Licence</h3>
+          <p>Our flagship programme. Structured 10-lesson journey from first drive to DLTC test day — fully K53 compliant.</p>
+          <ul class="svc-card__features">
+            <li>10 × 1-hour driving lessons</li>
+            <li>DLTC route practice sessions</li>
+            <li>Pre-test mock examination</li>
+            <li>Test-day accompanied lesson</li>
+            <li>Learner's package included</li>
+            <li>Student portal with progress logs</li>
+          </ul>
+          <div class="svc-card__price"><span class="amount">R2 850</span><span class="period">/package</span></div>
+          <a onclick="navigate('contact')" class="btn btn-gold btn-full" style="cursor:pointer">Enrol Now</a>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="svc-card reveal">
+        <div class="svc-card__top" style="background:linear-gradient(135deg,#2a0f00,#1a1c24)">
+          <svg viewBox="0 0 80 80" fill="none"><path d="M16 64L40 16l24 48" stroke="#C45C2A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M24 48h32" stroke="#C45C2A" stroke-width="2.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="svc-card__body">
+          <h3>Intensive Fast-Track</h3>
+          <p>Pass in as little as 10 days. Full-day lessons, daily debriefs, and route immersion — ideal for adults who need a licence urgently.</p>
+          <ul class="svc-card__features">
+            <li>25 hours of intensive tuition</li>
+            <li>Daily 2–3 hour lesson blocks</li>
+            <li>Theory crash course included</li>
+            <li>Priority DLTC slot booking</li>
+            <li>Pass guarantee (2 free re-prep lessons)</li>
+            <li>Morning pickup from your address</li>
+          </ul>
+          <div class="svc-card__price"><span class="amount">R6 500</span><span class="period">/package</span></div>
+          <a onclick="navigate('contact')" class="btn btn-green btn-full" style="cursor:pointer">Enrol Now</a>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="svc-card reveal">
+        <div class="svc-card__top" style="background:linear-gradient(135deg,#1d2a00,#1a1c24)">
+          <svg viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="14" stroke="#007A4D" stroke-width="2.5"/><path d="M16 68c0-13.3 10.7-24 24-24s24 10.7 24 24" stroke="#007A4D" stroke-width="2.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="svc-card__body">
+          <h3>Refresher & Confidence</h3>
+          <p>Licensed but rusty? Anxious on highways or in Jo'burg traffic? We rebuild your skill and confidence at your pace, lesson by lesson.</p>
+          <ul class="svc-card__features">
+            <li>Flexible 1–5 lesson bundles</li>
+            <li>Highway & N-road confidence</li>
+            <li>Taxi-route navigation coaching</li>
+            <li>Night driving sessions</li>
+            <li>No long-term commitment</li>
+          </ul>
+          <div class="svc-card__price"><span class="amount">R380</span><span class="period">/hour</span></div>
+          <a onclick="navigate('contact')" class="btn btn-green btn-full" style="cursor:pointer">Book Session</a>
+        </div>
+      </div>
+
+      <!-- Card 5 -->
+      <div class="svc-card reveal">
+        <div class="svc-card__top" style="background:linear-gradient(135deg,#1a0a2a,#1a1c24)">
+          <svg viewBox="0 0 80 80" fill="none"><rect x="10" y="20" width="60" height="40" rx="5" stroke="#C45C2A" stroke-width="2.5"/><path d="M10 32h60" stroke="#C45C2A" stroke-width="2.5"/><circle cx="28" cy="52" r="5" stroke="#C45C2A" stroke-width="2"/><circle cx="52" cy="52" r="5" stroke="#C45C2A" stroke-width="2"/></svg>
+        </div>
+        <div class="svc-card__body">
+          <h3>PrDP Professional Licence</h3>
+          <p>Operate taxis, minibuses, or goods vehicles legally. Full PrDP (Professional Driving Permit) preparation and application support.</p>
+          <ul class="svc-card__features">
+            <li>PrDP theory & practical prep</li>
+            <li>Medical & eye test guidance</li>
+            <li>Application form assistance</li>
+            <li>Mock PrDP route testing</li>
+            <li>Conversion from Code 10/14</li>
+          </ul>
+          <div class="svc-card__price"><span class="amount">R1 800</span><span class="period">/package</span></div>
+          <a onclick="navigate('contact')" class="btn btn-green btn-full" style="cursor:pointer">Enrol Now</a>
+        </div>
+      </div>
+
+      <!-- Card 6 -->
+      <div class="svc-card reveal">
+        <div class="svc-card__top" style="background:linear-gradient(135deg,#0a1a2a,#1a1c24)">
+          <svg viewBox="0 0 80 80" fill="none"><path d="M12 40c0-15.5 12.5-28 28-28s28 12.5 28 28" stroke="#E8A020" stroke-width="2.5" stroke-linecap="round"/><path d="M20 52l4-8 8 4 8-12 8 8 8-4" stroke="#E8A020" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="svc-card__body">
+          <h3>Defensive Driving Course</h3>
+          <p>Advanced road awareness for experienced drivers — tyre blowouts, skid control, emergency braking, and bad-weather driving on SA roads.</p>
+          <ul class="svc-card__features">
+            <li>4-hour advanced classroom session</li>
+            <li>Skid pan & emergency stop practice</li>
+            <li>Fleet driver certification available</li>
+            <li>Certificate of completion</li>
+            <li>Insurance discount motivation letter</li>
+          </ul>
+          <div class="svc-card__price"><span class="amount">R1 200</span><span class="period">/person</span></div>
+          <a onclick="navigate('contact')" class="btn btn-green btn-full" style="cursor:pointer">Book Now</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Add-ons -->
+  <section class="svc-extras">
+    <div class="svc-extras__inner">
+      <h2>Add-Ons & Extras</h2>
+      <div class="svc-extras-grid">
+        <div class="extra-card reveal">
+          <div class="extra-card__icon">🎁</div>
+          <h4>Gift Vouchers</h4>
+          <p>Give the gift of independence. Available from R250 in any denomination. Valid 12 months.</p>
+        </div>
+        <div class="extra-card reveal">
+          <div class="extra-card__icon">🚗</div>
+          <h4>Test-Day Vehicle Hire</h4>
+          <p>Use our dual-control car for your DLTC test. Includes 30-min warm-up lesson. R450.</p>
+        </div>
+        <div class="extra-card reveal">
+          <div class="extra-card__icon">📱</div>
+          <h4>Online Theory Platform</h4>
+          <p>1 000+ questions, video explainers, and live mock tests. R150 standalone, free with packages.</p>
+        </div>
+        <div class="extra-card reveal">
+          <div class="extra-card__icon">🏫</div>
+          <h4>Corporate Fleet Training</h4>
+          <p>Group bookings for 5+ employees. Customised defensive driving and compliance programmes.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How to book -->
+  <section class="book-steps">
+    <div class="book-steps__inner">
+      <h2>How to get started</h2>
+      <div class="step-row reveal"><div class="step-num">1</div><div class="step-content"><h4>Choose your package</h4><p>Browse the options above or call us — we'll match you to the right programme based on your experience, schedule, and nearest DLTC.</p></div></div>
+      <div class="step-row reveal"><div class="step-num">2</div><div class="step-content"><h4>Get matched to an instructor</h4><p>We pair you with a certified instructor near you, suited to your learning style. You can switch at any time, no explanation needed.</p></div></div>
+      <div class="step-row reveal"><div class="step-num">3</div><div class="step-content"><h4>Book your first lesson</h4><p>Confirm your slot online, via WhatsApp, or by phone. Pay securely via EFT, card, or cash. Your slot is confirmed within 2 hours.</p></div></div>
+      <div class="step-row reveal"><div class="step-num">4</div><div class="step-content"><h4>Drive. Pass. Celebrate.</h4><p>Track progress in your portal, complete your mock test, then walk into your DLTC appointment ready. 91% of Khwezi students pass first time.</p></div></div>
+    </div>
+  </section>
+
+</div><!-- /page-services -->
+
+
+<!-- ══════════════════════════════════════
+     PAGE: GALLERY
+══════════════════════════════════════ -->
+<div class="page" id="page-gallery">
+  <section class="gallery-page">
+    <div class="page-hero">
+      <span class="eyebrow">Our people & places</span>
+      <h1>The Khwezi Drive Story in Photos</h1>
+      <p>From our instructors to our students' pass-day celebrations — this is what learning to drive with Khwezi Drive looks like.</p>
+    </div>
+
+    <!-- Stats bar -->
+    <div class="gal-stats">
+      <div class="gal-stat"><span>15 000+</span><span>Students Taught</span></div>
+      <div class="gal-stat"><span>8</span><span>Provinces Active</span></div>
+      <div class="gal-stat"><span>18+</span><span>Certified Instructors</span></div>
+      <div class="gal-stat"><span>2006</span><span>Est. in Soweto</span></div>
+    </div>
+
+    <!-- Filters -->
+    <div class="gallery-filters" style="padding-top:2.5rem">
+      <button class="filter-btn active" onclick="filterGallery('all',this)">All</button>
+      <button class="filter-btn" onclick="filterGallery('lessons',this)">Lessons</button>
+      <button class="filter-btn" onclick="filterGallery('passday',this)">Pass Day</button>
+      <button class="filter-btn" onclick="filterGallery('team',this)">Our Team</button>
+      <button class="filter-btn" onclick="filterGallery('locations',this)">Locations</button>
+    </div>
+
+    <div class="gallery-grid" id="galleryGrid">
+
+      <div class="gal-item wide reveal" data-cat="lessons" onclick="openLightbox('First Lesson in Soweto','A student experiencing the steering wheel for the first time at our original Soweto branch. Every journey begins somewhere.','🚗')">
+        <div class="gal-thumb" style="background:linear-gradient(135deg,#0d2a1d,#1a2e1f)">
+          <div class="gal-icon">🚗</div>
+          <div class="gal-txt">First Lesson · Soweto</div>
+        </div>
+        <div class="gal-item__overlay"></div>
+        <div class="gal-item__label"><h4>First Lesson · Soweto</h4><p>Our flagship branch in action</p></div>
+      </div>
+
+      <div class="gal-item reveal" data-cat="passday" onclick="openLightbox('Pass Day Celebration','Naledi passed her K53 driver\'s test first attempt — pure joy outside the Roodepoort DLTC.','🎉')">
+        <div class="gal-thumb" style="background:linear-gradient(135deg,#2a1a00,#1a1c24)">
+          <div class="gal-icon">🎉</div>
+          <div class="gal-txt">Pass Day · Roodepoort</div>
+        </div>
+        <div class="gal-item__overlay"></div>
+        <div class="gal-item__label"><h4>Pass Day · Roodepoort</h4><p>Naledi — first attempt</p></div>
+      </div>
+
+      <div class="gal-item reveal" data-cat="team" onclick="openLightbox('Instructor Team Gauteng','Our Gauteng team of six instructors — all SADTI registered, all passionate about safe roads.','👥')">
+        <div class="gal-thumb" style="background:linear-gradient(135deg,#1a0d2a,#1a1c24)">
+          <div class="gal-icon">👥</div>
+          <div class="gal-txt">Gauteng Instructors</div>
+        </div>
+        <div class="gal-item__overlay"></div>
+        <div class="gal-item__label"><h4>Gauteng Team</h4><p>Six certified instructors</p></div>
+      </div>
+
+      <div class="gal-item reveal" data-cat="lessons" onclick="openLightbox('K53 Parking Practice','Parallel and bay parking — the part students dread most. Our instructors have a proven method that removes the guesswork.','🅿️')">
+        <div class="gal-thumb" style="background:linear-gradient(135deg,#001a0d,#0d1a10)">
+          <div class="gal-icon">🅿️</div>
+          <div class="gal-txt">Parking Practice · Cape Town</div>
+        </div>
+        <div class="gal-item__overlay"></div>
+        <div class="gal-item__label"><h4>Parking Practice</h4><p>Cape Town branch · parallel park</p></div>
+      </div>
+
+      <div class="gal-item reveal" data-cat="locations" onclick="openLightbox('Cape Town Branch','Our Sea Point branch opened in 2019 — covering the Cape Peninsula and Bellville DLTC routes.','🏫')">
+        <div class="gal-thumb" style="background:linear-gradient(135deg,#001a1a,#0d1a1a)">
+          <div class="gal-icon">🏫</div>
+          <div class="gal-txt">Cape Town Branch · Sea Point</div>
+        </div>
+        <div class="gal-item__overlay"></div>
+        <div class="gal-item__label"><h4>Cape Town Branch</h4><p>Sea Point, Western Cape</p></div>
+      </div>
+
+      <div class="gal-item reveal" data-cat="passday" onclick="openLightbox('Twin Pass Day — Durban','Two siblings, one lesson package, one test day — both passed! Durban North DLTC, 2023.','🏆')">
+        <div class="gal-thumb" style="background:linear-gradient(135deg,#1a1000,#1a1c24)">
+          <div class="gal-icon">🏆</div>
+          <div class="gal-txt">Twin Pass Day · Durban</div>
+        </div>
+        <div class="gal-item__overlay"></div>
+        <div class="gal-item__label"><h4>Twin Pass Day · Durban</h4><p>Siblings both passed first attempt</p></div>
+      </div>
+
+      <div class="gal-item reveal" data-cat="team" onclick="openLightbox('CPD Training Day','Annual Continuing Professional Development day — all instructors, Pretoria HQ. We invest in our team so they can invest in you.','📚')">
+        <div class="gal-thumb" style="background:linear-gradient(135deg,#0a0a1a,#1a1c24)">
+          <div class="gal-icon">📚</div>
+          <div class="gal-txt">CPD Training Day · Pretoria</div>
+        </div>
+        <div class="gal-item__overlay"></div>
+        <div class="gal-item__label"><h4>Annual CPD Day</h4><p>All instructors · Pretoria HQ</p></div>
+      </div>
+
+      <div class="gal-item wide reveal" data-cat="lessons" onclick="openLightbox('Highway Confidence Session','N1 South on-ramp practice — building the confidence to merge safely at speed. This is a lesson most schools skip. We don\'t.','🛣️')">
+        <div class="gal-thumb" style="background:linear-gradient(135deg,#1a1000,#0d1505)">
+          <div class="gal-icon">🛣️</div>
+          <div class="gal-txt">Highway Session · N1 Johannesburg</div>
+        </div>
+        <div class="gal-item__overlay"></div>
+        <div class="gal-item__label"><h4>N1 Highway Confidence</h4><p>We go where other schools don't</p></div>
+      </div>
+
+      <div class="gal-item reveal" data-cat="locations" onclick="openLightbox('Durban Branch','Our KZN branch in Pinetown covers Durban North, South, and Westville DLTC routes.','📍')">
+        <div class="gal-thumb" style="background:linear-gradient(135deg,#001522,#0d1a24)">
+          <div class="gal-icon">📍</div>
+          <div class="gal-txt">Durban Branch · Pinetown</div>
+        </div>
+        <div class="gal-item__overlay"></div>
+        <div class="gal-item__label"><h4>Durban Branch</h4><p>Pinetown, KwaZulu-Natal</p></div>
+      </div>
+
+    </div>
+  </section>
+</div><!-- /page-gallery -->
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+  <button class="lightbox__close" onclick="closeLightbox()">✕</button>
+  <div class="lightbox__content">
+    <div class="lightbox__img" id="lbImg" style="background:var(--charcoal);font-size:5rem"></div>
+    <div class="lightbox__info">
+      <h3 id="lbTitle"></h3>
+      <p id="lbDesc"></p>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     PAGE: ABOUT
+══════════════════════════════════════ -->
+<div class="page" id="page-about">
+  <section class="about-page">
+    <div style="background:var(--charcoal);padding-top:6rem;padding-bottom:5rem">
+      <div class="about-hero">
+        <div class="about-hero__text">
+          <span class="eyebrow">Our story</span>
+          <h1>Born in Soweto.<br/>Built for All of SA.</h1>
+          <p>Khwezi Drive was founded in 2006 in Soweto by <strong>Thabo Nkosi</strong>, a SADTI-registered driving instructor who believed that quality driving education should be available to every South African — not just those who could afford private tutors in the northern suburbs.</p>
+          <p>What started as one instructor, one car, and a handwritten lesson schedule has grown into an academy with <strong>18 certified instructors</strong>, branches in <strong>8 provinces</strong>, and a pass rate that consistently doubles the national average.</p>
+          <p>Our name means <em>morning star</em> in Zulu — the first light before the road opens up. That's what we aim to be for every learner who walks through our doors.</p>
+          <a onclick="navigate('contact')" class="btn btn-gold btn-lg" style="margin-top:1.5rem;cursor:pointer">Start your journey</a>
+        </div>
+        <div class="about-visual">
+          <div class="about-visual__flag">
+            <span style="background:#007A4D"></span>
+            <span style="background:#000;flex:.4"></span>
+            <span style="background:#E8A020"></span>
+            <span style="background:#000;flex:.4"></span>
+            <span style="background:#007A4D"></span>
+            <span style="background:#C45C2A;flex:.6"></span>
+          </div>
+          <p class="eyebrow" style="margin-bottom:1.25rem">Our Journey</p>
+          <div class="timeline">
+            <div class="tl-item">
+              <span class="tl-year">2006</span>
+              <div class="tl-bar"></div>
+              <div class="tl-content"><h4>Founded in Soweto</h4><p>Thabo Nkosi registers Khwezi Drive with SADTI. First student: his neighbour's daughter, who passed first attempt.</p></div>
+            </div>
+            <div class="tl-item">
+              <span class="tl-year">2010</span>
+              <div class="tl-bar"></div>
+              <div class="tl-content"><h4>Expanded to Pretoria</h4><p>Opened our second branch in Sunnyside. Three instructors, a fleet of two dual-control vehicles.</p></div>
+            </div>
+            <div class="tl-item">
+              <span class="tl-year">2015</span>
+              <div class="tl-bar"></div>
+              <div class="tl-content"><h4>Cape Town & Durban</h4><p>Reached 5 000 students taught. Launched our online K53 mock test platform — free for all students.</p></div>
+            </div>
+            <div class="tl-item">
+              <span class="tl-year">2019</span>
+              <div class="tl-bar"></div>
+              <div class="tl-content"><h4>PrDP & Corporate Training</h4><p>Added professional driving permit preparation and fleet driver programmes for South African businesses.</p></div>
+            </div>
+            <div class="tl-item">
+              <span class="tl-year">2024</span>
+              <div class="tl-bar"></div>
+              <div class="tl-content"><h4>15 000 students & counting</h4><p>Now operating across 8 provinces with 18 instructors. Maintaining a 91% first-attempt pass rate.</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Values -->
+  <section class="about-values">
+    <div class="about-values__inner">
+      <h2>What we stand for</h2>
+      <div class="values-grid">
+        <div class="val-card reveal">
+          <h3>Ubuntu</h3>
+          <p>We teach driving as a community act. Responsible drivers make safer roads for every South African — pedestrians, cyclists, and taxi commuters included.</p>
+        </div>
+        <div class="val-card reveal">
+          <h3>Honesty</h3>
+          <p>We tell you how many lessons you likely need before you pay. We don't inflate hours. Your money, your time, our respect.</p>
+        </div>
+        <div class="val-card reveal">
+          <h3>Excellence</h3>
+          <p>A 91% pass rate isn't luck — it's structured curriculum, regular mock tests, and instructors who take their CPD seriously every year.</p>
+        </div>
+        <div class="val-card reveal">
+          <h3>Inclusion</h3>
+          <p>From Soweto to Sandton, from 16 to 60 — everyone deserves quality driving tuition. We have students from every background, every province.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Team -->
+  <section class="about-team">
+    <div class="about-team__inner">
+      <h2>Meet the instructors</h2>
+      <div class="team-grid">
+        <div class="team-card reveal">
+          <div class="team-card__avi" style="background:linear-gradient(135deg,#007A4D,#004d30)"><span>TN</span></div>
+          <div class="team-card__body">
+            <h4>Thabo Nkosi</h4>
+            <span class="team-card__grade">Founder · SADTI Grade A · 18 yrs</span>
+            <p>Built Khwezi Drive from scratch. Specialises in nervous first-timers and intensive adult programmes.</p>
+          </div>
+        </div>
+        <div class="team-card reveal">
+          <div class="team-card__avi" style="background:linear-gradient(135deg,#C45C2A,#8a3d1a)"><span>SM</span></div>
+          <div class="team-card__body">
+            <h4>Sipho Mokoena</h4>
+            <span class="team-card__grade">SADTI Grade A · 12 yrs</span>
+            <p>Gauteng's most-booked instructor. Calm, methodical, and brilliant with anxious learners on Jo'burg freeways.</p>
+          </div>
+        </div>
+        <div class="team-card reveal">
+          <div class="team-card__avi" style="background:linear-gradient(135deg,#E8A020,#9a6a00)"><span>ZD</span></div>
+          <div class="team-card__body">
+            <h4>Zanele Dlamini</h4>
+            <span class="team-card__grade">SADTI Grade A · 9 yrs</span>
+            <p>Our Cape Town lead. Specialises in mountain pass driving, night sessions, and PrDP preparation.</p>
+          </div>
+        </div>
+        <div class="team-card reveal">
+          <div class="team-card__avi" style="background:linear-gradient(135deg,#1a2a4d,#0d1730)"><span>LN</span></div>
+          <div class="team-card__body">
+            <h4>Lungelo Ntuli</h4>
+            <span class="team-card__grade">SADTI Grade B · 6 yrs</span>
+            <p>KZN-based instructor known for making 17-year-olds feel completely at ease from the very first lesson.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Coverage -->
+  <div class="about-coverage">
+    <div class="about-coverage__inner">
+      <h2>Where we operate</h2>
+      <p>Khwezi Drive has active instructors and DLTC partnerships across 8 South African provinces.</p>
+      <div class="coverage-cities">
+        <span class="city-pill">Johannesburg</span>
+        <span class="city-pill">Soweto</span>
+        <span class="city-pill">Pretoria</span>
+        <span class="city-pill">Cape Town</span>
+        <span class="city-pill">Durban</span>
+        <span class="city-pill">Port Elizabeth</span>
+        <span class="city-pill">Bloemfontein</span>
+        <span class="city-pill">East London</span>
+        <span class="city-pill">Nelspruit</span>
+        <span class="city-pill">Polokwane</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Accreditations -->
+  <div class="about-accred">
+    <div class="about-accred__inner">
+      <h3>Registered & Accredited</h3>
+      <div class="accred-list">
+        <div class="accred-badge">SADTI Registered</div>
+        <div class="accred-badge">K53 Certified Curriculum</div>
+        <div class="accred-badge">DLTC Approved Partner</div>
+        <div class="accred-badge">SADC Road Safety Council</div>
+        <div class="accred-badge">CIPC Registered (2006)</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /page-about -->
+
+
+<!-- ══════════════════════════════════════
+     PAGE: CONTACT
+══════════════════════════════════════ -->
+<div class="page" id="page-contact">
+  <section class="contact-page">
+    <div class="page-hero">
+      <span class="eyebrow">Get in touch</span>
+      <h1>Let's Get You Driving</h1>
+      <p>Fill in the form, WhatsApp us, or call your nearest branch. We respond within 2 hours on business days.</p>
+    </div>
+    <div class="contact-inner">
+
+      <!-- Left col -->
+      <div class="contact-info">
+        <div class="contact-map">
+          <span>🗺️</span>
+          <p>Multiple branches across SA</p>
+        </div>
+
+        <div class="branches">
+          <h3>Our Branches</h3>
+          <div class="branch-list">
+            <div class="branch-item">
+              <div class="branch-item__dot"></div>
+              <div><div class="branch-item__name">Soweto (HQ)</div><div class="branch-item__addr">Vilakazi Street, Orlando West, Soweto</div></div>
+            </div>
+            <div class="branch-item">
+              <div class="branch-item__dot"></div>
+              <div><div class="branch-item__name">Pretoria</div><div class="branch-item__addr">Church Street, Sunnyside, Pretoria 0002</div></div>
+            </div>
+            <div class="branch-item">
+              <div class="branch-item__dot"></div>
+              <div><div class="branch-item__name">Cape Town</div><div class="branch-item__addr">Main Road, Sea Point, Cape Town 8005</div></div>
+            </div>
+            <div class="branch-item">
+              <div class="branch-item__dot"></div>
+              <div><div class="branch-item__name">Durban</div><div class="branch-item__addr">Old Main Road, Pinetown, KZN 3610</div></div>
+            </div>
+            <div class="branch-item">
+              <div class="branch-item__dot"></div>
+              <div><div class="branch-item__name">Port Elizabeth</div><div class="branch-item__addr">Gqeberha Central, Nelson Mandela Bay</div></div>
+            </div>
+          </div>
+        </div>
+
+        <ul class="contact-details">
+          <li>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.9 12.12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.81 1.4h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9.16a16 16 0 0 0 6.93 6.93l1.05-1.05a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            0800 KHWEZI (549 394)
+          </li>
+          <li>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            WhatsApp: 082 000 5493
+          </li>
+          <li>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            hello@khwezidrive.co.za
+          </li>
+          <li>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>
+            Mon–Sat · 07:00–19:00
+          </li>
+        </ul>
+
+        <div class="contact-socials">
+          <a href="#" class="social-btn">Facebook</a>
+          <a href="#" class="social-btn">Instagram</a>
+          <a href="#" class="social-btn">TikTok</a>
+          <a href="#" class="social-btn">WhatsApp</a>
+        </div>
+      </div>
+
+      <!-- Right col — form -->
+      <div class="contact-form">
+        <h3>Book Your Lesson</h3>
+        <p class="sub">We'll confirm your slot and nearest instructor within 2 hours.</p>
+        <div class="form-row">
+          <div class="fg"><label>First Name</label><input type="text" placeholder="Thabo"/></div>
+          <div class="fg"><label>Surname</label><input type="text" placeholder="Nkosi"/></div>
+        </div>
+        <div class="fg"><label>Mobile Number</label><input type="tel" placeholder="082 000 0000"/></div>
+        <div class="fg"><label>Email Address</label><input type="email" placeholder="you@example.co.za"/></div>
+        <div class="fg">
+          <label>Nearest City / Province</label>
+          <select>
+            <option value="">Select your city…</option>
+            <option>Johannesburg / Soweto</option>
+            <option>Pretoria / Centurion</option>
+            <option>Cape Town / Western Cape</option>
+            <option>Durban / KwaZulu-Natal</option>
+            <option>Port Elizabeth / Nelson Mandela Bay</option>
+            <option>Bloemfontein / Free State</option>
+            <option>Other province</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label>Package Interest</label>
+          <select>
+            <option value="">Which course are you interested in?</option>
+            <option>K53 Learner's Package (R350)</option>
+            <option>Standard Driver's Licence (R2 850)</option>
+            <option>Intensive Fast-Track (R6 500)</option>
+            <option>Refresher & Confidence (R380/hr)</option>
+            <option>PrDP Professional Licence (R1 800)</option>
+            <option>Defensive Driving Course (R1 200)</option>
+            <option>Not sure — help me choose</option>
+          </select>
+        </div>
+        <div class="fg"><label>Anything else? (optional)</label><textarea rows="3" placeholder="e.g. I'm a nervous learner, need Saturday lessons, or I'm based in Mitchells Plain…"></textarea></div>
+        <button class="btn btn-gold btn-full btn-lg" onclick="submitForm(this)">Send Enquiry</button>
+        <p class="form-note">We respond within 2 hours on business days. No spam. Ever.</p>
+        <div class="form-success" id="formSuccess">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+          Enquiry sent! We'll be in touch within 2 hours.
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="contact-faq">
+    <div class="contact-faq__inner">
+      <h2>Common Questions</h2>
+      <details class="faq-item"><summary>Do I need my learner's licence before booking a practical lesson?</summary><p>Yes — you need a valid learner's licence to legally drive on South African public roads. We offer a K53 learner's package to help you pass the theory test first, and then we move straight into practical lessons.</p></details>
+      <details class="faq-item"><summary>How many lessons will I need to pass my driver's test?</summary><p>The national average is 20–30 hours of instruction. Our structured programme typically achieves test-readiness in 10–15 hours, depending on prior experience and how frequently you book. We give you an honest estimate at your first session.</p></details>
+      <details class="faq-item"><summary>Can I use your car for my DLTC test?</summary><p>Yes. We offer a test-day vehicle hire (R450) which includes a 30-minute warm-up lesson in the test area beforehand. Most students find this makes a significant difference to their confidence on the day.</p></details>
+      <details class="faq-item"><summary>What is the pass guarantee?</summary><p>If you complete our Standard or Fast-Track package and don't pass your DLTC test on the first attempt, we provide two additional 1-hour preparation lessons free of charge before your retest. No expiry on the guarantee.</p></details>
+      <details class="faq-item"><summary>Do you offer lessons in languages other than English?</summary><p>Yes — several of our instructors can teach in Zulu, Sotho, Xhosa, and Afrikaans. Let us know your language preference when booking and we'll match you accordingly.</p></details>
+      <details class="faq-item"><summary>How do I pay for lessons?</summary><p>We accept EFT, card (in-branch), and SnapScan. Cash is accepted at all branches. A 50% deposit is required to confirm your slot. Packages are paid in full upfront and include all sessions listed.</p></details>
+    </div>
+  </section>
+
+</div><!-- /page-contact -->
+
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer class="footer">
+  <div class="footer__stripe"></div>
+  <div class="footer__inner">
+    <div class="footer__brand">
+      <a class="nav__logo" onclick="navigate('home')" style="cursor:pointer;display:inline-flex">
+        <svg class="nav__logo-mark" viewBox="0 0 48 48" fill="none">
+          <circle cx="24" cy="24" r="21" stroke="#007A4D" stroke-width="2"/>
+          <circle cx="24" cy="24" r="5" fill="#E8A020"/>
+          <line x1="24" y1="3" x2="24" y2="19" stroke="#E8A020" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="24" y1="29" x2="24" y2="45" stroke="#E8A020" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="3" y1="24" x2="19" y2="24" stroke="#E8A020" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="29" y1="24" x2="45" y2="24" stroke="#E8A020" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+        <div>
+          <div class="nav__logo-text">Khwezi Drive</div>
+          <div class="nav__logo-sub">SA Driving Academy</div>
+        </div>
+      </a>
+      <p style="margin-top:1rem">Born in Soweto in 2006. Teaching South Africa to drive safely for nearly two decades.</p>
+      <p class="footer__legal">SADTI Registered Driving School · K53 Accredited · CIPC Reg. No. 2006/084521/07<br/>Operating in 8 South African provinces · Pass rate 91% · 15 000+ students taught</p>
+    </div>
+    <div class="footer__cols">
+      <div class="footer__col">
+        <h4>Services</h4>
+        <ul>
+          <li><a onclick="navigate('services')">K53 Learner Package</a></li>
+          <li><a onclick="navigate('services')">Standard Driver's Licence</a></li>
+          <li><a onclick="navigate('services')">Intensive Fast-Track</a></li>
+          <li><a onclick="navigate('services')">Refresher Lessons</a></li>
+          <li><a onclick="navigate('services')">PrDP Professional</a></li>
+          <li><a onclick="navigate('services')">Defensive Driving</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4>Company</h4>
+        <ul>
+          <li><a onclick="navigate('about')">Our Story</a></li>
+          <li><a onclick="navigate('about')">Meet the Instructors</a></li>
+          <li><a onclick="navigate('gallery')">Gallery</a></li>
+          <li><a onclick="navigate('contact')">Branches</a></li>
+          <li><a onclick="navigate('contact')">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a>0800 KHWEZI (549 394)</a></li>
+          <li><a>082 000 5493 (WhatsApp)</a></li>
+          <li><a>hello@khwezidrive.co.za</a></li>
+          <li><a>Mon–Sat · 07:00–19:00</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="footer__bottom">
+    <p>© 2024 Khwezi Drive (Pty) Ltd. All rights reserved.</p>
+    <div class="footer__social">
+      <a>FB</a><a>IG</a><a>TT</a><a>WA</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ── Page navigation ──
+function navigate(page) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav__links a').forEach(a => a.classList.remove('active'));
+  document.getElementById('page-' + page).classList.add('active');
+  const link = document.querySelector('[data-page="' + page + '"]');
+  if (link) link.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  setTimeout(triggerReveals, 100);
+}
+
+// ── Mobile menu ──
+const burger = document.getElementById('burger');
+const mobMenu = document.getElementById('mobMenu');
+burger.addEventListener('click', () => {
+  burger.classList.toggle('open');
+  mobMenu.classList.toggle('open');
+});
+function closeMob() {
+  burger.classList.remove('open');
+  mobMenu.classList.remove('open');
+}
+
+// ── Nav scroll ──
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('active', window.scrollY > 40);
+});
+
+// ── Scroll reveal ──
+function triggerReveals() {
+  const els = document.querySelectorAll('.page.active .reveal:not(.show)');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('show'), i * 70);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  els.forEach(el => observer.observe(el));
+}
+triggerReveals();
+
+// ── Marquee duplication ──
+const items = ['K53 Certified','SADTI Registered','91% Pass Rate','8 Provinces','15 000+ Students','Dual-Control Vehicles','K53 Mock Tests','WhatsApp Support','Pass Guarantee','Born in Soweto'];
+const track = document.getElementById('marqueeTrack');
+if (track) {
+  const doubled = [...items, ...items];
+  track.innerHTML = doubled.map(t => `<span class="marquee-item">${t}</span><span class="marquee-item marquee-dot">◆</span>`).join('');
+}
+
+// ── Gallery filter ──
+function filterGallery(cat, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.gal-item').forEach(item => {
+    const show = cat === 'all' || item.dataset.cat === cat;
+    item.style.display = show ? '' : 'none';
+  });
+}
+
+// ── Lightbox ──
+function openLightbox(title, desc, icon) {
+  document.getElementById('lbTitle').textContent = title;
+  document.getElementById('lbDesc').textContent = desc;
+  document.getElementById('lbImg').textContent = icon;
+  document.getElementById('lightbox').classList.add('open');
+}
+function closeLightbox(e) {
+  if (!e || e.target === document.getElementById('lightbox') || e.currentTarget === document.querySelector('.lightbox__close')) {
+    document.getElementById('lightbox').classList.remove('open');
+  }
+}
+
+// ── Form submit ──
+function submitForm(btn) {
+  btn.style.display = 'none';
+  document.getElementById('formSuccess').classList.add('show');
+}
+</script>
+</body>
+</html>
