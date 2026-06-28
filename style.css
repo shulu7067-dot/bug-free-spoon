@@ -1,24 +1,38 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background: #f5f7fa;
+  background: #f4f7fb;
   color: #222;
+  line-height: 1.6;
 }
 
-header {
+/* HEADER (supports both header styles you had) */
+header,
+.header {
   background: #0b3d91;
   color: white;
   padding: 20px;
   text-align: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
-nav a {
+/* NAVIGATION */
+nav a,
+.header nav a {
   color: white;
   margin: 0 10px;
   text-decoration: none;
   font-weight: bold;
 }
 
+.header nav a.active {
+  border-bottom: 2px solid #ffcc00;
+}
+
+/* HERO (unified version) */
 .hero {
   padding: 80px 20px;
   text-align: center;
@@ -26,10 +40,15 @@ nav a {
   color: white;
 }
 
+.hero h1 {
+  font-size: 40px;
+}
+
+/* BUTTON */
 .btn {
   display: inline-block;
   margin-top: 15px;
-  padding: 10px 20px;
+  padding: 12px 25px;
   background: #ffcc00;
   color: black;
   text-decoration: none;
@@ -37,6 +56,7 @@ nav a {
   font-weight: bold;
 }
 
+/* FEATURES SECTION */
 .features {
   display: flex;
   justify-content: center;
@@ -45,6 +65,7 @@ nav a {
   flex-wrap: wrap;
 }
 
+/* CARDS (used everywhere) */
 .card {
   background: white;
   padding: 20px;
@@ -54,9 +75,43 @@ nav a {
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
+/* ABOUT PAGE SECTIONS */
+.section {
+  padding: 50px 20px;
+  max-width: 1000px;
+  margin: auto;
+}
+
+.section.alt {
+  background: white;
+  border-radius: 10px;
+  margin: 20px auto;
+  padding: 50px 20px;
+}
+
+/* LISTS */
+ul {
+  padding-left: 20px;
+}
+
+ul li {
+  margin: 10px 0;
+  font-size: 16px;
+}
+
+/* GRID (for About page "Why Choose Us") */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 15px;
+  margin-top: 20px;
+}
+
+/* FOOTER */
 footer {
   text-align: center;
   padding: 20px;
   background: #222;
   color: white;
+  margin-top: 40px;
 }
